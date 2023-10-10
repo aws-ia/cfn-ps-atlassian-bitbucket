@@ -710,6 +710,13 @@ Resources:
         - !Ref BitbucketClusterNodeRole
   BitbucketFileServerRole:
     Type: AWS::IAM::Role
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            - EIAMPolicyWildcardResource: Intent assumed for initial migration.
     Properties:
       AssumeRolePolicyDocument:
         Version: 2012-10-17
@@ -880,6 +887,13 @@ Resources:
                 - !Ref "AWS::NoValue"
   BitbucketClusterNodeRole:
     Type: AWS::IAM::Role
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            - EIAMPolicyWildcardResource: Intent assumed for initial migration.
     Properties:
       AssumeRolePolicyDocument:
         Version: 2012-10-17
@@ -1192,6 +1206,13 @@ Resources:
   Elasticsearch:
     Condition: UseIAMSignedRequestsES
     Type: AWS::Elasticsearch::Domain
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            - EIAMPolicyWildcardResource: Intent assumed for initial migration.
     Properties:
       EBSOptions:
         EBSEnabled: true
@@ -1304,6 +1325,13 @@ Resources:
                 - "es.amazonaws.com"
   ElasticsearchSecure:
     Condition: UseFineGrainedAccessControlES
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            - EIAMPolicyWildcardResource: Intent assumed for initial migration.
     DependsOn:
       - ElasticsearchServiceRole
     Type: AWS::Elasticsearch::Domain
@@ -1360,6 +1388,13 @@ Resources:
   ElasticsearchKMSKey:
     Condition: UseFineGrainedAccessControlES
     Type: AWS::KMS::Key
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - EIAMPolicyWildcardResource
+          ignore_reasons:
+            - EIAMPolicyWildcardResource: Intent assumed for initial migration.
     Properties:
       Description: Encryption key for Elasticsearch cluster
       Enabled: true
@@ -1451,6 +1486,10 @@ Resources:
     DependsOn:
       - AnsibleRepoPinSHA
     Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - E2504 # False detection
       Comment: Set up NFS Server and initial bitbucket.properties
       AWS::CloudFormation::Init:
         config:
@@ -1706,6 +1745,13 @@ Resources:
   DB:
     Type: AWS::RDS::DBInstance
     Condition: DBEnginePostgres
+    Metadata:
+      cfn-lint:
+        config:
+          ignore_checks:
+            - ERDSDBInstancePubliclyAccessible
+          ignore_reasons:
+            - ERDSDBInstancePubliclyAccessible: PubliclyAccessible defined by subnet configration
     Properties:
       AllocatedStorage: !Ref DBStorage
       DBInstanceClass: !Ref DBInstanceClass
