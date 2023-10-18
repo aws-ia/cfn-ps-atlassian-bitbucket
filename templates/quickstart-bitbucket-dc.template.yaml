@@ -579,7 +579,7 @@ Parameters:
     MaxLength: 90
     Type: String
   QSS3BucketName:
-    Default: 'aws-quickstart'
+    Default: aws-ia
     AllowedPattern: ^[0-9a-zA-Z]+([0-9a-zA-Z-]*[0-9a-zA-Z])*$
     ConstraintDescription: Quick Start bucket name can include numbers, lowercase
       letters, uppercase letters, and hyphens (-). It cannot start or end with a hyphen
